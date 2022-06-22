@@ -73,6 +73,7 @@ const findEditThenSave = (personId, done) => {
 
 const findAndUpdate = (personName, done) => {
   const ageToSet = 20;
+//findOneAndUpdate uses ( conditions , update , options , callback ) as arguments.
 	Person.findOneAndUpdate({name:personName}, {age:ageToSet}, {new:true}, function(err, data){
   	if(err) return console.log(err); 
   	done(null , data);
@@ -80,7 +81,10 @@ const findAndUpdate = (personName, done) => {
 };
 
 const removeById = (personId, done) => {
-  done(null /*, data*/);
+  Person.findByIdAndRemove({_id:personId}, function(err, data){
+  	if(err) return console.log(err);
+		done(null /*, data*/);
+	}) 
 };
 
 const removeManyPeople = (done) => {
