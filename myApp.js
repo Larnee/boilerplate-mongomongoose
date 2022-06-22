@@ -74,6 +74,7 @@ const findEditThenSave = (personId, done) => {
 const findAndUpdate = (personName, done) => {
   const ageToSet = 20;
 //findOneAndUpdate uses ( conditions , update , options , callback ) as arguments.
+//In Mongoosejs, findOneAndUpdate returns the new document if the new property is set to true.
 	Person.findOneAndUpdate({name:personName}, {age:ageToSet}, {new:true}, function(err, data){
   	if(err) return console.log(err); 
   	done(null , data);
@@ -84,13 +85,15 @@ const removeById = (personId, done) => {
   Person.findByIdAndRemove({_id:personId}, function(err, data){
   	if(err) return console.log(err);
 		done(null, data);
-	}) 
+	});
 };
 
 const removeManyPeople = (done) => {
   const nameToRemove = "Mary";
-
-  done(null /*, data*/);
+	Person.remove({name:nameToRemove}, function(err, data){
+		if(err) return console.log(err);
+  	done(null, data);
+	});
 };
 
 const queryChain = (done) => {
