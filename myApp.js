@@ -64,7 +64,7 @@ const findEditThenSave = (personId, done) => {
     data.favoriteFoods.push(foodToAdd);
 
     // and inside the find callback - save() the updated Person.
-    person.save((err, updatedData) => {
+    data.save((err, updatedData) => {
       if(err) return console.log(err);
       done(null, updatedData)
     })
